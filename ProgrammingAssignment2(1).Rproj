@@ -9,7 +9,7 @@ makeCachematrix <- function(x = matix()){
   getinv <- function() inv
   list(set = set, get = get, setinv = setinv, getinv = getinv)
 }
-cacheinv <- function(x, ...){
+cacheSolve <- function(x, ...){
   m <- x$getinv()
   if (!is.null(inv)){
     message("getting cached data")
@@ -19,3 +19,7 @@ cacheinv <- function(x, ...){
   inv <- inverse(m.data, ...)
   x$setinv(inv)
   return(inv)
+}
+x<-makeCachematrix(matrix(c(1,0,0,0,1,0,0,0,2),ncol=3,nrow=3))
+x$get()
+x$getinverse()

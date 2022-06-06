@@ -1,13 +1,21 @@
-Version: 1.0
-
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
-
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
-
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+makeCachematrix <- function(x = matix()){
+  inv <- NULL
+  set <- function(y){
+    x <<-y
+    inv <<- NULL
+  }
+  get<- function() x
+  setinv <- function(inverse) inv <<- inverse
+  getinv <- function() inv
+  list(set = set, get = get, setinv = setinv, getinv = getinv)
+}
+cacheinv <- function(x, ...){
+  m <- x$getinv()
+  if (!is.null(inv)){
+    message("getting cached data")
+    return(inv)
+  }
+  m.data <- x$get()
+  inv <- inverse(m.data, ...)
+  x$setinv(inv)
+  return(inv)
